@@ -1,9 +1,13 @@
 class Solution {
 public:
     
-    void solve(const vector<int>& candidates, int indx, int target,  vector<int> curr, vector<vector<int>>& res) {
+    void solve(const vector<int>& candidates, int indx, int target,  vector<int> curr, set<vector<int>>& res) {
         if(target <= 0) {
-            if(target == 0) res.push_back(curr);
+            if(target == 0) {
+                sort(curr.begin(), curr.end());
+                if(res.count(curr) == 0)
+                    res.insert(curr);
+            }
             return;
         }
         for(int i = indx; i < candidates.size(); i++) {
@@ -16,8 +20,8 @@ public:
     }
     
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> res;
+        set<vector<int>> res;
         solve(candidates, 0, target, {}, res);
-        return res;
+        return vector<vector<int>>(res.begin(), res.end());
     }
 };
