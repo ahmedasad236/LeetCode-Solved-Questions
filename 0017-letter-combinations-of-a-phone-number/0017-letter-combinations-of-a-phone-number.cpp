@@ -16,15 +16,16 @@ public:
     
     void solve(string s, int index, string curr, vector<string>& res) {
         if(index == s.size()) {
-          if(curr.size() == s.size() && curr != "")
+          if(curr != "")
             res.push_back(curr);
           return;
         } 
         
         for(auto c : chars[s[index] - '0']) {
             if(c == '0') continue;
-            solve(s, index + 1, curr + c, res);
+            curr += c;
             solve(s, index + 1, curr, res);
+            curr.pop_back();
         }
     }
     
